@@ -11,6 +11,11 @@ class ApplicationController < Sinatra::Base
     empls.to_json
   end
 
+  get '/employees/:name' do
+    empls = Employee.find_by(name: params[:name])
+    empls.to_json
+  end
+
   post '/employees' do 
     empl = Employee.create(
       name: params[:name],
@@ -22,9 +27,5 @@ class ApplicationController < Sinatra::Base
     empl.to_json
   end
 
-  get '/destroy' do
-    msj = Employee.destroy_all
-    msj.to_json
-  end
 
 end
