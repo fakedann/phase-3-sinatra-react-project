@@ -27,5 +27,14 @@ class ApplicationController < Sinatra::Base
     empl.to_json
   end
 
+  patch '/employees/:name' do
+    # empls = Employee.find(params[:name])
+    empls = Employee.find_by(name: params[:name])
+    field = params[:field]
+    empls.send("#{field}=",params[:body])
+    empls.save
+    empls.to_json
+  end
+
 
 end
