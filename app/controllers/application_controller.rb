@@ -12,8 +12,9 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/employees/:name' do
-    empls = Employee.find_by(name: params[:name])
-    empls.to_json
+    # empls = Employee.find_by(name: params[:name])
+    empl = Employee.find_employee(params[:name])
+    empl.to_json
   end
 
   post '/employees' do 
@@ -29,11 +30,26 @@ class ApplicationController < Sinatra::Base
 
   patch '/employees/:name' do
     # empls = Employee.find(params[:name])
-    empls = Employee.find_by(name: params[:name])
+    empls = Employee.find_employee(params[:name])
     field = params[:field]
     empls.send("#{field}=",params[:body])
     empls.save
     empls.to_json
+  end
+
+  get '/restaurants' do
+    empls = Restaurant.all.order(created_at: :asc)
+    empls.to_json
+  end
+
+  post '/restaurants' do 
+    rest = Restaurant.create(
+      name: params[:name],
+      address: params[:address],
+      phone: params[:phone],
+      type_of_food: params[:foodType]
+    )
+    rest.to_json
   end
 
 
