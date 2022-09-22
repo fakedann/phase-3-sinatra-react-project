@@ -23,7 +23,8 @@ class ApplicationController < Sinatra::Base
       dob: params[:dob],
       address: params[:address],
       phone: params[:phone],
-      position: params[:position]
+      position: params[:position],
+      restaurant_id: params[:restaurant_id]
     )
     empl.to_json
   end
