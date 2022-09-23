@@ -43,6 +43,11 @@ class ApplicationController < Sinatra::Base
     empls.to_json
   end
 
+  get '/restaurant/:id' do
+    rest = Restaurant.find_by(id: params[:id])
+    rest.to_json
+  end
+
   post '/restaurants' do 
     rest = Restaurant.create(
       name: params[:name],
