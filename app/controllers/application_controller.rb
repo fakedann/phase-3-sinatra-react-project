@@ -36,6 +36,14 @@ class ApplicationController < Sinatra::Base
     empls.to_json
   end
 
+  delete '/employees/:id/:restid' do
+    empl = Employee.find(params[:id])
+    empl.destroy
+    rest = Restaurant.find_restaurant(params[:restid])
+    empls = rest.employees
+    empls.to_json
+  end
+
   get '/restaurants' do
     empls = Restaurant.all.order(created_at: :asc)
     empls.to_json
